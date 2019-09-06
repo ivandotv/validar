@@ -1,0 +1,11 @@
+title: Validation Runner
+description: run your validations like a boss
+show_downloads: false
+plugins:
+  - jekyll-relative-links
+  - jekyll-remote-theme
+remote_theme: pmarsceill/just-the-docs
+# docks are generated via docker container
+# run docker command in the root of the project
+# docker run --name=validation-runner-docs -p 4000:4000 --volume="$PWD/docs:/srv/jekyll" -it \
+# jekyll/jekyll jekyll serve --livereload --incremental --verbose

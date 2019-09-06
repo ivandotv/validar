@@ -1,0 +1,9 @@
+node_modules
+/coverage
+/reports
+/lib
+/types
+/.buildcache
+/docs/_site
+/docs/Gemfile.lock
+docs/.jekyll-metadata
