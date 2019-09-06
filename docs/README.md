@@ -1,7 +1,5 @@
 # Validation Runner
 
-//TODO - runkit setup
-
 Run your validations like a bos. Synchronosly or asynchronosly.
 
 Works great with [Validator.js](https://github.com/validatorjs/validator.js)
@@ -9,10 +7,6 @@ Works great with [Validator.js](https://github.com/validatorjs/validator.js)
 [![CircleCI](https://circleci.com/gh/ivandotv/validation-runner/tree/master.svg?style=svg)](https://circleci.com/gh/ivandotv/validation-runner/tree/master)
 [![codecov](https://codecov.io/gh/ivandotv/validation-runner/branch/master/graph/badge.svg)](https://codecov.io/gh/ivandotv/validation-runner)
 ![dependabot enabled](https://flat.badgen.net/dependabot/dependabot/dependabot-core/?icon=dependabot)
-
-//TODO - licence badge
-//TODO - kb size
-//TODO - gzip size
 
 ## Introduction
 
