@@ -1,7 +1,7 @@
 {
   "name": "validar",
   "version": "1.0.0-alpha.1",
-  "description": "",
+  "description": "Object schema validation runner",
   "main": "lib",
   "types": "lib",
   "files": [
@@ -35,12 +35,14 @@
     "jest-junit": "^8.0.0",
     "jest-watch-typeahead": "^0.4.0",
     "lint-staged": "^9.2.5",
+    "move-file-cli": "^1.0.0",
     "prettier": "^1.18.2",
     "ts-jest": "^24.0.2",
     "typescript": "^3.6.2"
   },
   "scripts": {
-    "prepublishOnly": "npm run compile && npm run test",
+    "prepublishOnly": "npm run compile && npm run test && move-file ./docs/README.md ./README.md",
+    "postPublish": "move-file ./README.md ./docs/README.md",
     "ci:test": "jest --maxWorkers=1 --reporters=default --reporters=jest-junit --coverage --coverageDirectory=coverage",
     "test": "jest --verbose --runInBand --coverage --no-cache",
     "test:watch": "jest --watch --runInBand",
@@ -86,9 +88,15 @@
     "url": "git+https://github.com/ivandotv/validar.git"
   },
   "author": "Ivan Vlatkovic",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ivandotv/validar/issues"
   },
-  "homepage": "https://github.com/ivandotv/validar#readme"
+  "homepage": "https://github.com/ivandotv/validar#readme",
+  "keywords": [
+    "validator",
+    "validation",
+    "object schema",
+    "validation runner"
+  ]
 }
