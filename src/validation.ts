@@ -234,7 +234,7 @@ export type MissingFieldMessage = (
  * @param test Test function for the validation @see Test
  * @param message Message for the user if validation fails @see TestMessage
  * @param missingMessage Message when field to be validated is not present @see MissingFieldMessage
- * @param required if field to be validated must exist on the object to be validated.
+ * @param required if the field to be validated must exist on the object to be validated.
  */
 export interface ValidationConfig {
   test: TestFunc
@@ -246,7 +246,7 @@ export interface ValidationConfig {
 /**
  * Result of the validation.
  *
- * @param valid true if whole object is validated successfully
+ * @param valid true if the whole object is validated successfully
  * @param errors validation results with errors @see FieldValidationResult
  * @param missing field validation results that are missing but not required @see FieldValidationResult
  * @param struct  object that represents the structure of testedObject with all test results.
@@ -270,7 +270,7 @@ type DeepValidated<T> = T extends object
  * Result object for single field validation.
  *
  * @param error  true if validation failed
- * @param missing  true if field to be validated is missing from the test object and the field is required
+ * @param missing  true if the field to be validated is missing from the test object and the field is required
  * @param value  value of the field that was tested
  * @param field object field name
  * @param path  full path to the field on the object e.g user.profile.address

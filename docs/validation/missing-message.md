@@ -34,8 +34,7 @@ default value is:
 You will notice that the difference between `missingMessage` and [test message](test-message) is that this function does not accept the `value` and `payload`. This is because the test is never executed (because the field on the object to be validated does not exists)
 
 ```js
-import { validate, validation } from 'validation-runner'
-
+const { validate, validation } = require('validar')
 // custom string
 const email = validation({
   test: () => true,

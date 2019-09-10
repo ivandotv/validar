@@ -50,7 +50,7 @@ These values are the same as the values passed to the function
 ### Example
 
 ```js
-import { validate, validation } from 'validation-runner'
+const  { validate, validation }  = require('validar')
 
 // custom string
 const v = validation({

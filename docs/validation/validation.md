@@ -44,7 +44,7 @@ const isEmail = validation({
 })
 ```
 
-Or it can accept a single paramter that is a test function:
+Or it can accept a single paramter that is the test function:
 
 ```js
 const isEmail = validation((value,field,path,objecUnderTest){
@@ -52,14 +52,6 @@ const isEmail = validation((value,field,path,objecUnderTest){
   return true
 })
 
-```
-
-In case of the shorter syntax [Validator.js](https://github.com/validatorjs/validator.js) can be used directly as test function
-
-```js
-import isEmail from 'validator/lib/isEmail'
-
-const isEmailTest = validation(isEmail)
 ```
 
 That is all that is required for creating a minimal validation test. Other configuration options will have their default values set.

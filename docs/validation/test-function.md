@@ -25,8 +25,7 @@ export type Test<T extends TestResult> = (
 Function to test the values coming from the object under validation.
 
 ```js
-import { validate, validation } from 'validation-runner'
-
+const { validate, validation } = require('validar')
 //object to validate
 const testObj = {
   profile: {
@@ -49,7 +48,7 @@ const validationObject = {
   },
 }
 
-const result = validate(testObj, validationObject)
+const result = validate(validationObject, testObj)
 ```
 
 function parameters:
@@ -60,14 +59,6 @@ function parameters:
 - `objUnderTest`: reference to the object that is currently being tested. Here you can access all other properties of the object (so in case you have a `city` field that you are currently testing, you can also look at the `country` field to determine if the `city` is valid).
 
 Any function that accepts `value` as the first parameter and returns `boolean` or [expected object](#return-values) can be used.
-
-All test functions from [Validator.js](https://github.com/validatorjs/validator.js) library can be used directly as test function.
-
-```js
-import isEmail from 'validator/lib/isEmail'
-
-const isEmailTest = validation(isEmail)
-```
 
 ## Async test function
 
@@ -88,7 +79,7 @@ Using `reject()` will bubble up and will have to be handled with the validator f
 When using asynchronous tests you should use `validateAsync()` function
 
 ```js
-import { validate, validation } from 'validation-runner'
+const { validate, validation } = require('validar')
 
 //object to validate
 const testObj = {
@@ -181,15 +172,13 @@ const stringLengthTest = (value, field, path, objectUnderTest) => {
 Then if the test is a failure [`message`]('test-message') function will be called with the result of the test and the payload.
 
 ```js
-
-// message function will only be called if the test if a failure
+// message function will only be called if the test is a failure
 const message = (value,field,path,objUnderTest,payload)=>{
     //value -> test value
     // payload -> {
             // propA:'propA',
             // propB:'propB'
         // }
-
     return 'Custom failure message'
     }
 }

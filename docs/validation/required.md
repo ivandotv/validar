@@ -7,13 +7,9 @@ nav_order: 4
 
 ## Required property
 
-## TODO - required sa multiple validatorima i objasniti zasto da se
-
-## validator sa required postavi prvi
-
 If this property is `true` object under test must have a field with the value other than `undefined`.
 
-If the field is not present that will be considered an error and the object under test won't pass the validation.
+If the field is not present that will be considered an error and the object under test will not pass the validation.
 
 In case that the field doesn't exist on the test object and `Validation` instance `required` property is `false`, the test will not be an error, but `FieldValidationResult` _`missing`_ field will be set to `true`.
 
@@ -22,7 +18,7 @@ You can also call required on an already created `Validation` instance and it wi
 ### Examples
 
 ```js
-import { validate, validation } from 'validation-runner'
+const { validate, validation } = require('validar')
 
 const testEmail = validation(validator.isEmail)
 
@@ -57,7 +53,8 @@ let result = validate(testObj, validators)
 // how the result should look like
 result = {
     valid:false, // because of the workEmail test
-    errors[errorObj], // <- errorObj === struct.workEmail
+    errors:[errorObj],
+    missing:[errorObj,errorObj2]
     struct:{
         personalEmail:{
             error:false,// false because it is not required
@@ -77,7 +74,7 @@ result = {
         }
     }
 }
-
 // result.errors[0] === result.struct.workEmail
-
+// result.missing[0] === result.struct.personalEmail
+// result.missing[1] === result.struct.workEmail
 ```

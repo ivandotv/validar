@@ -1,29 +1,30 @@
-# Validation Runner
+Don't complicate your object schema validation.
 
-Run your validations like a bos. Synchronosly or asynchronosly.
+Validate objects synchronously or asynchronously.
 
-Works great with [Validator.js](https://github.com/validatorjs/validator.js)
-
-[![CircleCI](https://circleci.com/gh/ivandotv/validation-runner/tree/master.svg?style=svg)](https://circleci.com/gh/ivandotv/validation-runner/tree/master)
-[![codecov](https://codecov.io/gh/ivandotv/validation-runner/branch/master/graph/badge.svg)](https://codecov.io/gh/ivandotv/validation-runner)
+![CircleCI](https://img.shields.io/circleci/build/github/ivandotv/validar/master)
+![Codecov](https://img.shields.io/codecov/c/github/ivandotv/validar)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/validar)
 ![dependabot enabled](https://flat.badgen.net/dependabot/dependabot/dependabot-core/?icon=dependabot)
 
 ## Introduction
 
-**Validation runner doesn't contain any validation tests**. It is meant to be used with tried and tested validation libraries such as [Validator.js](https://github.com/validatorjs/validator.js) or you can write your own tests very easily.
+**Validation runner doesn't contain any validation tests**, it is meant to be used with tried and tested validation libraries such as [Validator.js](https://github.com/validatorjs/validator.js) or you can write your own tests very easily.
 
-## Example
+Validation runner doesn’t contain any validation tests. It is meant to be used with tried and tested validation libraries such as Validator.js or you can write your own tests very easily.
+Example
+
+## Usage
 
 Given an object with the data:
 
 ```js
-
 const person ={
-    name:'Adam'
-    location:{
-        country:'Canada',
-        city:'Montreal099',
-    }
+  name:'Adam'
+  location:{
+    country:'Canada',
+    city:'Montreal099',
+  }
 }
 // Note: fields on the testing object can be nested any number of levels.
 ```
@@ -33,32 +34,38 @@ And validation object like this:
 ```js
 const personValidators = {
   name: isAlpha,
+  lastName: isAlpha,
   occupation: isAlpha.required(),
   location: {
     country: [isString, isValidCountry], //multiple validators
     city: isCityInValidCountry,
   },
 }
-
-// isAlpha, isString, isValidCoutry are validation tests (more on that later)
-
-// note: validation object doesn't have to match testing object structure
+// isAlpha, isString, isValidCoutry, isCityInValidCountry are validation tests (more on that later)
 ```
 
-Let's validate the `person` object
+Let’s validate the person object
 
 ```js
 // this is the validation step
-const result = validate(person, personValidators)
+const result = validate(personValidators, person)
+```
 
-// `person` object will fail validation because:
-// - occupation  -> field does not exist on `person` object and it's required to exist
-// - location.city -> not a valid city in Canada
+Let’s look at the result
 
-// this is the result structure from the validation step
+person object will fail validation because:
+
+- `occupation` field does not exist on person object and it is required to exist.
+- `location.city` is not a valid city in Canada
+
+Note: `person` object will not fail validation because it lacks `lastName` field. The reason is because that field is not marked as `required` on the validation object. Validation object and object under test don’t have to have matching structure ( unless you want to ).
+
+The result:
+
+```js
 result = {
     valid:false,
-    errors[errorObj1,errorObj2],
+    errors:[errorObj1,errorObj2],
     struct:{
         name:{
             error:false,
@@ -70,9 +77,9 @@ result = {
         occupation:{
             error:true,
             missing:true,
-            value:null
+            value:null,
             field:'occupation',
-            path:'occupation'
+            path:'occupation',
             message:'Field "occupation" not provided'
         }
         location:{
@@ -94,107 +101,30 @@ result = {
         }
     }
 }
+// result.errors[0] = result.struct.occupation
+// result.errors[1] = result.struct.location.city
+// result.missing[0] = result.struct.occuption
 ```
 
-## Async Example
+- _Errors_ are conveniently storred in the errors array on the result object.
+- _Missing_ fields are stored in the missing array on the result object.
 
-Validation tests can be asynchronous (talk to the database etc..) in that case you just use the `validateAsync` function.
+[runkit example](https://runkit.com/ivandotv/validar)
+
+### Asynchronous validation
+
+Validation tests can be asynchronous (talk to the database etc..) in that case you just use the `validateAsync` function and handle the promise that is returned when all validation tests are done.
 
 ```js
-validateAsync(person, personValidators).then(result => {
+validateAsync(personValidators, person).then(result => {
   console.log(result)
 })
 ```
 
-Read more about in the docs:
+asynchronous runkit example
 
-- Exploring result structure
-- Creating validation test
-- Asynchronous validation
+Check out documentation for more information about:
 
-//TODO - ovo ide u poseban fajl
-Also all errors are conveniently storred in the `errors` array on the `result` object
-
-```js
-// same object as result.struct.occupation
-result.errors[0] = {
-    error:true,
-    missing:true,
-    value:null
-    field:'occupation',
-    path:'occupation'
-    message:'Field "occupation" not provided'
-}
-// same object as result.struct.location.city
-result.errors[1] = {
-    error:true,
-    missing:false,
-    value:'Montreal099'
-    field:'city',
-    path:'location.city',
-    message:'Field "location.city" is not a valid city in Canada'
-}
-
-```
-
-For every field that exists on the validator object, this structure will be returned
-
-```js
-/**
- * Result object for single field validation.
- *
- * @param error  true if validation failed
- * @param missing  true if field to be validated is missing from the test object and the field is required
- * @param value  value of the field that was tested
- * @param field object field name
- * @param path  full path to the field on the object e.g user.profile.address
- * @param message  field validation message
- */
-export interface FieldValidationResult {
-  error: boolean
-  missing: boolean
-  field: string
-  path: string
-  message?: string
-  value?: any
-}
-```
-
-## Usage
-
-There are two pieces to this validation puzzle.
-
-- Object to validate
-- Object that holds validations
-
-```js
-const result = validate(testObject, validationObject)
-```
-
-Validation object fields should be constructed from `Validation` instances. These instances should be created via `validation` factory function.
-
-```js
-import { validate, validation }  from 'validation-runner'
-import validator from 'validator';
-
-const isEmail = validation(
-    test:(value,key,path,objUnderTest)=>{
-        //you can do your own tests or use validator.js
-        return validator.isEmail(value)
-    }
-)
-//or shorter
-const isEmail = validation(validator.isEmail)
-
-//object that holds validations
-const validationObject = {
-  email: isEmail
-}
-
-const result = validate(testObj,validationObject)
-```
-
-Note: for the shorter version of validation creation you can use any test function that accepts `value` as first parameter and returns `boolean` result if test is successfull or not.
-
-There are other optional properties for the validation function.
-Please refer to the wiki for more info.
+- [Exploring result structure](https://ivandotv.github.io/validar/validate/validation-result)
+- [Creating validation tests](https://ivandotv.github.io/validar/validation/test-function)
+- [Asynchronous validation](https://ivandotv.github.io/validar/validate/validate-async)
