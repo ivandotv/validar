@@ -5,7 +5,7 @@ parent: Validating data
 nav_order: 1
 ---
 
-Validation tests can be asynchronous (talk to the database etc..) in that case you just use the `validateAsync` function and handle the promise that is returned when all validation test are done.
+Validation tests can be asynchronous (talk to the database etc..) in that case you just use the `validateAsync` function and handle the promise that is returned when all validation tests are done.
 
 ```js
 const { validate, validation } = require('validar')
@@ -34,7 +34,7 @@ validateAsync(validators, person)
   })
 ```
 
-Result of the validation will always be accessible via `then` ( resolved promise), even when validation fails. `Catch` block us used for errors that come from the async tests (if database is unavailable, connection timeout etc)
+Result of the validation will always be accessible via `then` ( resolved promise), even when validation fails. `Catch` block us used for errors that come from the async tests (if the database is unavailable, connection timeout, etc)
 
 asynchronous runkit example
 

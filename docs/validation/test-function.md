@@ -55,7 +55,7 @@ function parameters:
 
 - `value`: value to test
 - `field`: name of the field that is under the test
-- `path`: path to the field under test. If the field is deeply nested full path could be something like `person.profile.email`
+- `path`: a path to the field under test. If the field is deeply nested full path could be something like `person.profile.email`
 - `objUnderTest`: reference to the object that is currently being tested. Here you can access all other properties of the object (so in case you have a `city` field that you are currently testing, you can also look at the `country` field to determine if the `city` is valid).
 
 Any function that accepts `value` as the first parameter and returns `boolean` or [expected object](#return-values) can be used.
@@ -111,7 +111,7 @@ const result = validateAsync(testObj, validationObject)
     console.log(result)
   })
   .catch(error => {
-    //something went wrong during the validation, promise has timedout
+    //something went wrong during the validation, a promise has timed out
     // or some async test rejected the promise
   })
 ```
@@ -135,10 +135,10 @@ export interface TestPayload {
 
 Test function can return few different values
 
-- `boolean`: `true` if test is successfull.
+- `boolean`: `true` if the test is successful.
 - Special object `TestPayload` with the following properties.
-  - `valid`: `boolean` -> `true` if test is successfull.
-  - `payload`: object that can have any arbitrary data added, and that object will be passed to the [`test message`](test-message) function in case that the test is unsuccessfull (function returns `false` or `promise` resolves to `false`)
+  - `valid`: `boolean` -> `true` if test is successful.
+  - `payload`: an object that can have any arbitrary data added, and that object will be passed to the [`test message`](test-message) function in case that the test is unsuccessful (function returns `false` or `promise` resolves to `false`)
 
 ```js
 const stringLengthTest = (value, field, path, objectUnderTest) => {

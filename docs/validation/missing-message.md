@@ -23,7 +23,7 @@ export type MissingFieldMessage = (
 ) => string
 ```
 
-default value is:
+The default value is:
 
 ```js
 'Field:'${path}' not provided.'
@@ -31,7 +31,7 @@ default value is:
 
 ### Example
 
-You will notice that the difference between `missingMessage` and [test message](test-message) is that this function does not accept the `value` and `payload`. This is because the test is never executed (because the field on the object to be validated does not exists)
+You will notice that the difference between `missingMessage` and [test message](test-message) is that this function does not accept the `value` and `payload`. This is because the test is never executed (because the field on the object to be validated does not exist)
 
 ```js
 const { validate, validation } = require('validar')

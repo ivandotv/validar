@@ -7,7 +7,7 @@ nav_order: 2
 
 ## Test message
 
-This property is used when the associated test fails. Return value will be used on the `FieldValidationResult` object as the message for the failed validation.
+This property is used when the associated test fails. The return value will be used on the `FieldValidationResult` object as the message for the failed validation.
 
 ```js
 /**
@@ -44,7 +44,7 @@ In case of a simple string there is a special syntax that you can use:
 These values are the same as the values passed to the function
 
 ```js
-'Field %field on path: %path with value: %value is not valid'
+'Field %field on the path: %path with value: %value is not valid'
 ```
 
 ### Example

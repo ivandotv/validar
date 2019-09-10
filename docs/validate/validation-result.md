@@ -12,7 +12,7 @@ Both `validate` and `validateAsync` functions return the same result object with
 /**
  * Result of the validation.
  *
- * @param valid true if whole object is validated successfully
+ * @param valid true if the whole object is validated successfully
  * @param errors validation results with errors @see FieldValidationResult
  * @param missing field validations that are missing on the test object  @see FieldValidationResult
  * @param struct  object that represents the structure of the validation object with all test results.
@@ -84,7 +84,7 @@ As you can see there is a pattern to the `struct` object properties. For every f
  * Result object for single field validation.
  *
  * @param error  true if validation failed
- * @param missing  true if field to be validated is missing from the test object and the field is required
+ * @param missing  true if the field to be validated is missing from the test object and the field is required
  * @param value  value of the field that was tested
  * @param field object field name
  * @param path  full path to the field on the object e.g user.profile.address
@@ -123,7 +123,7 @@ result.errors[1] = {
 }
 ```
 
-Missing fields are storred in the `missing` array.
+Missing fields are stored in the `missing` array.
 
 ```js
 // same object as result.struct.occupation

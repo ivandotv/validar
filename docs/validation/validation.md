@@ -9,7 +9,7 @@ has_toc: false
 
 ## Creating validation instances
 
-`Validation` instances should be constructed via `validation` factory function.
+`Validation` instances should be constructed via the `validation` factory function.
 
 `validation` function accepts a configuration object with the following signature:
 
@@ -20,7 +20,7 @@ has_toc: false
  * @param test Test function for the validation @see Test
  * @param message Message for the user if validation fails @see TestMessage
  * @param missingMessage Message when field to be validated is not present @see MissingFieldMessage
- * @param required if field to be validated must exist on the object to be validated.
+ * @param required if the field to be validated must exist on the object to be validated.
  */
 export interface ValidationConfig {
   test: Test<any>
