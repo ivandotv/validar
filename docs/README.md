@@ -5,6 +5,7 @@ Validate objects synchronously or asynchronously.
 ![CircleCI](https://img.shields.io/circleci/build/github/ivandotv/validar/master)
 ![Codecov](https://img.shields.io/codecov/c/github/ivandotv/validar)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/validar)
+![NPM](https://img.shields.io/npm/l/validar)
 ![dependabot enabled](https://flat.badgen.net/dependabot/dependabot/dependabot-core/?icon=dependabot)
 
 ## Introduction
