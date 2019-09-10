@@ -340,34 +340,42 @@ function closeOverPromise(
   fieldErrors: FieldValidationResult[],
   errorPool: { [key: string]: FieldValidationResult }
 ): Promise<FieldValidationResult> {
+  let resolveLater: (r: FieldValidationResult) => void // promise resolve when all async tasks are done
+  let rejectLater: (e: Error) => void // reject if any of async tasks throws
+
   // wrap test promise
   const promiseWrap: Promise<FieldValidationResult> = new Promise(
+    // fix for someone passing Promise.resolve() for async test
+    // https://stackoverflow.com/a/53953341/1489487
     (resolve, reject) => {
-      testPromiseResult
-        .then(result => {
-          const constructedResult = buildTestResult(
-            validation,
-            result,
-            testValue,
-            field,
-            objUnderTest,
-            path
-          )
-          if (constructedResult.error) {
-            // push only if not already pushed
-            if (typeof errorPool[constructedResult.path] === 'undefined') {
-              errorPool[constructedResult.path] = constructedResult
-              fieldErrors.push(constructedResult)
-            }
-          }
-          set(objStruct, path, constructedResult)
-          resolve(constructedResult)
-        })
-        .catch(reason => {
-          reject(reason)
-        })
+      resolveLater = resolve
+      rejectLater = reject
     }
   )
+
+  testPromiseResult
+    .then(result => {
+      const constructedResult = buildTestResult(
+        validation,
+        result,
+        testValue,
+        field,
+        objUnderTest,
+        path
+      )
+      if (constructedResult.error) {
+        // push only if not already pushed
+        if (typeof errorPool[constructedResult.path] === 'undefined') {
+          errorPool[constructedResult.path] = constructedResult
+          fieldErrors.push(constructedResult)
+        }
+      }
+      set(objStruct, path, constructedResult)
+      resolveLater(constructedResult)
+    })
+    .catch(reason => {
+      rejectLater(reason)
+    })
   return promiseWrap
 }
 

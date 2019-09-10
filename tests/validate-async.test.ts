@@ -294,4 +294,116 @@ describe('Async validation', () => {
       })
     })
   })
+  test('Immediately return rejected promise', async () => {
+    const nameValue = 'Sam'
+    const testObj = {
+      name: nameValue,
+    }
+
+    const validator = {
+      name: validation({
+        test: value => {
+          return Promise.resolve(false)
+        },
+        message: message,
+      }),
+    }
+    const result = await validateAsync(validator, testObj)
+
+    const nameError = {
+      error: true,
+      missing: false,
+      value: nameValue,
+      message: message(nameValue, 'name', 'name'),
+      field: 'name',
+      path: 'name',
+    }
+
+    const expectedResult = {
+      valid: false,
+      errors: [nameError],
+      missing: [],
+      struct: {
+        name: nameError,
+      },
+    }
+    expect(result).toEqual(expect.objectContaining(expectedResult))
+  })
+
+  test('Immediately return resolved promise', async () => {
+    const nameValue = 'Sam'
+    const testObj = {
+      name: nameValue,
+    }
+
+    const validator = {
+      name: validation({
+        test: value => {
+          return Promise.resolve(true)
+        },
+        message: message,
+      }),
+    }
+    const result = await validateAsync(validator, testObj)
+
+    const expectedResult = {
+      valid: true,
+      errors: [],
+      missing: [],
+      struct: {
+        name: {
+          error: false,
+          missing: false,
+          value: nameValue,
+          field: 'name',
+          path: 'name',
+        },
+      },
+    }
+    expect(result).toEqual(expect.objectContaining(expectedResult))
+  })
+  test('Immediately return promise deeply nested', async () => {
+    const nameValue = 'Sam'
+    const testObj = {
+      d1: {
+        d2: {
+          name: nameValue,
+        },
+      },
+    }
+
+    const validator = {
+      d1: {
+        d2: {
+          name: validation({
+            test: value => {
+              return Promise.resolve(true)
+            },
+          }),
+        },
+      },
+    }
+    const result = await validateAsync(validator, testObj)
+
+    const expectedResult = {
+      valid: true,
+      errors: [],
+      missing: [],
+      struct: {
+        d1: {
+          d2: {
+            name: {
+              error: false,
+              missing: false,
+              value: nameValue,
+              // message: '',
+              field: 'name',
+              path: 'd1.d2.name',
+            },
+          },
+        },
+      },
+    }
+    expect(result).toEqual(expect.objectContaining(expectedResult))
+  })
 })
