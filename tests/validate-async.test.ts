@@ -74,6 +74,7 @@ describe('Async validation', () => {
           field: 'nick',
           path: 'nick',
           value: 'iki',
+          message: '',
         },
       },
     }
@@ -141,6 +142,7 @@ describe('Async validation', () => {
             field: 'name',
             path: 'name',
             value: 'ivan',
+            message: '',
           },
           nick: {
             error: false,
@@ -148,6 +150,7 @@ describe('Async validation', () => {
             field: 'nick',
             path: 'nick',
             value: 'iki',
+            message: '',
           },
         },
       }
@@ -355,6 +358,7 @@ describe('Async validation', () => {
           error: false,
           missing: false,
           value: nameValue,
+          message: '',
           field: 'name',
           path: 'name',
         },
@@ -396,7 +400,7 @@ describe('Async validation', () => {
               error: false,
               missing: false,
               value: nameValue,
-              // message: '',
+              message: '',
               field: 'name',
               path: 'd1.d2.name',
             },

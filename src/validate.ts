@@ -261,6 +261,7 @@ function buildTestResult(
     value: testValue,
     path: path,
     field: field,
+    message: '',
   }
 
   if (!isBoolean(testResult)) {

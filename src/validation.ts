@@ -281,6 +281,6 @@ export interface FieldValidationResult {
   missing: boolean
   field: string
   path: string
-  message?: string
-  value?: any
+  message: string
+  value: any
 }
