@@ -1,3 +1,9 @@
+## Install
+
+```js
+npm install validar
+```
+
 Don't complicate your object schema validation.
 
 Validate objects synchronously or asynchronously.
@@ -129,3 +135,4 @@ Check out documentation for more information about:
 - [Exploring result structure](https://ivandotv.github.io/validar/validate/validation-result)
 - [Creating validation tests](https://ivandotv.github.io/validar/validation/test-function)
 - [Asynchronous validation](https://ivandotv.github.io/validar/validate/validate-async)
+- [TEST](http://localhost:4000/test-docks/index.html)
