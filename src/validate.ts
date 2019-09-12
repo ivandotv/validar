@@ -157,6 +157,7 @@ function runValidations<T>(
           if (Array.isArray(validation) || isValidation(validation)) {
             validation = wrapInArray(validation)
 
+            // TODO - test only for required and build missing field immediately
             for (const test of validation) {
               testResult = buildMissingField(
                 test,
@@ -201,7 +202,7 @@ function runValidations<T>(
     if (finalResult.errors.length > 0) {
       finalResult.valid = false
     }
-    // async function can be called with no async tests
+    // async function version can be called with no async tests
     // then return a promise
     if (isAsync) {
       return Promise.resolve(finalResult)
