@@ -4,6 +4,10 @@ plugins:
   - jekyll-relative-links
   - jekyll-remote-theme
 remote_theme: pmarsceill/just-the-docs
+# Aux links for the upper right navigation
+aux_links:
+  'Validar on GitHub':
+    - '//github.com/ivandotv/validar'
 # docks are generated via docker container
 # run docker command in the root of the project
 # docker run --name=validar-docs -p 4000:4000 --volume="$PWD/docs:/srv/jekyll" -it \

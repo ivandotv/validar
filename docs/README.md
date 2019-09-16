@@ -1,12 +1,14 @@
+## Validar
+
+Don't complicate your object schema validation.
+
+Validate objects synchronously or asynchronously.
+
 ## Install
 
 ```js
 npm install validar
 ```
-
-Don't complicate your object schema validation.
-
-Validate objects synchronously or asynchronously.
 
 ![CircleCI](https://img.shields.io/circleci/build/github/ivandotv/validar/master)
 ![Codecov](https://img.shields.io/codecov/c/github/ivandotv/validar)
@@ -128,11 +130,18 @@ validateAsync(personValidators, person).then(result => {
 })
 ```
 
-asynchronous runkit example
+asynchronous [runkit](https://runkit.com/ivandotv/async-validar-example) example
 
 Check out documentation for more information about:
 
 - [Exploring result structure](https://ivandotv.github.io/validar/validate/validation-result)
 - [Creating validation tests](https://ivandotv.github.io/validar/validation/test-function)
 - [Asynchronous validation](https://ivandotv.github.io/validar/validate/validate-async)
-- [TEST](http://localhost:4000/test-docks/index.html)
+
+##### Author
+
+- **Ivan Vlatković**
+
+##### License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
