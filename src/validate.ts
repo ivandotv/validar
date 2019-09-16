@@ -65,20 +65,22 @@ function runValidations<T>(
   const objStruct = {}
 
   // promise that gets returned from async version
-  let promiseToReturn: Promise<ValidationResult>
+  let finalPromise: Promise<ValidationResult>
   let resolveLater: (r: ValidationResult) => void // promise resolve when all async tasks are done
   let rejectLater: (e: Error) => void // reject if any of async tasks throws
 
-  // pull of errors - guard for async function to not populate the array with the same errors
+  // pool of errors - guard for async functions to not populate the array with multiple errors for the same field
   const errorPool: { [key: string]: FieldValidationResult } = {}
-  const asyncTests: Array<Promise<FieldValidationResult>> = [] // array to store async tests
+  const asyncTests: Array<Promise<FieldValidationResult>> = [] // array of async tests
+
+  // if in async mode initialize fine promise
   if (isAsync) {
-    promiseToReturn = new Promise((resolve, reject) => {
+    finalPromise = new Promise((resolve, reject) => {
       resolveLater = resolve
       rejectLater = reject
     })
   }
-  // traverse validator object (all fields)
+  // traverse validator object
   deepForEach(
     validators,
     (
@@ -88,26 +90,27 @@ function runValidations<T>(
       path: string
     ) => {
       // subject can be "Object" or "Array"
-      // if it's array we skip it becase we iterate on arrays later
+      // if it's an array we skip it becase we iterate on arrays later
       if (!Array.isArray(subject)) {
-        // get value to test for this validator
-        var testValue: any | undefined = undefSafe(objUnderTest, path)
+        // take the path from the validator object and see if there is something on the same path on object under test
+        var valueToTest: any | undefined = undefSafe(objUnderTest, path)
         // do we have value to test for this validator?
-        var testValueIsUndefined: boolean = typeof testValue === 'undefined'
-        // true if we have array of validations to run current value
+        var testValueIsUndefined: boolean = typeof valueToTest === 'undefined'
+
         // result of the test
         let testResult: FieldValidationResult
 
-        // we have a value, lets run some validators
+        // if false, we have a value, lets run some validators
         if (!testValueIsUndefined) {
           // if it walks like a duck...
           if (Array.isArray(validation) || isValidation(validation)) {
             validation = wrapInArray(validation)
 
             for (const test of validation) {
+              // run all tests for current field
               const validationResult = runTest(
                 test,
-                testValue,
+                valueToTest,
                 field,
                 path,
                 objUnderTest
@@ -116,14 +119,16 @@ function runValidations<T>(
               if (isPromise(validationResult)) {
                 // throw if function not in async mode
                 if (!isAsync) {
-                  throw new Error('Async validation test encountered.')
+                  throw new Error(
+                    'Async validation test encountered. Use "validateAsync".'
+                  )
                 }
                 // create new promise an push it on stack of promises
                 asyncTests.push(
                   closeOverPromise(
                     test,
                     validationResult,
-                    testValue,
+                    valueToTest,
                     field,
                     objUnderTest,
                     path,
@@ -133,16 +138,18 @@ function runValidations<T>(
                   )
                 )
               } else {
-                // regular synchronous validation test
+                // validation has returned final value, build test result
                 testResult = buildTestResult(
                   test,
                   validationResult,
-                  testValue,
+                  valueToTest,
                   field,
                   objUnderTest,
                   path
                 )
+                // create path for the test result on the struct object
                 set(objStruct, path, testResult)
+                // if error push to errors array
                 if (testResult.error === true) {
                   finalResult.errors.push(testResult)
                   errorPool[testResult.path] = testResult
@@ -153,11 +160,11 @@ function runValidations<T>(
             }
           }
         } else {
-          // test value is undefined check if validations for the field are required
+          // value to test is undefined (field on the object to test does not exist)
+          // check if validations for the field are required
           if (Array.isArray(validation) || isValidation(validation)) {
             validation = wrapInArray(validation)
 
-            // TODO - test only for required and build missing field immediately
             for (const test of validation) {
               testResult = buildMissingField(
                 test,
@@ -167,14 +174,18 @@ function runValidations<T>(
                 test.isRequired
               )
 
+              // create path for the test result on the struct object
               set(objStruct, path, testResult)
 
+              // if test is required don't check other tests for the field
+              // mark the field as error and break
               if (test.isRequired) {
                 finalResult.errors.push(testResult)
                 break
               }
             }
-            // push to missing array
+            // no tests are required
+            // just push to missing array
             finalResult.missing.push(testResult)
           }
         }
@@ -195,7 +206,7 @@ function runValidations<T>(
       .catch(reason => {
         rejectLater(reason)
       })
-    return promiseToReturn
+    return finalPromise
   } else {
     // there is no async tests return immediately
     finalResult.struct = objStruct
@@ -225,14 +236,14 @@ function wrapInArray(validation: Validation | Validation[]): Validation[] {
 }
 
 /**
- * Run the actuall test
+ * Run validation test
  *
- * @param {Validation} validation
- * @param {*} testValue
- * @param {string} field
- * @param {string} path
- * @param {*} objUnderTest
- * @returns {TestResult}
+ * @param  validation
+ * @param testValue
+ * @param field
+ * @param path
+ * @param objUnderTest
+ * @returns test result can be a promise
  */
 function runTest(
   validation: Validation,
@@ -245,7 +256,15 @@ function runTest(
 }
 
 /**
- * Build result object for tested field
+ *
+ * Build result object for the tested field
+ *
+ * @param validation
+ * @param testResult
+ * @param testValue
+ * @param field
+ * @param objUnderTest
+ * @param path
  */
 function buildTestResult(
   validation: Validation,
@@ -289,6 +308,11 @@ function buildTestResult(
 
 /**
  * Build result for the field when field is required but it is missing
+ * @param validation
+ * @param field
+ * @param path
+ * @param objUnderTest
+ * @param isError
  */
 function buildMissingField(
   validation: Validation,
@@ -310,10 +334,10 @@ function buildMissingField(
 /**
  * Check if value is boolean
  *
- * @param  value
+ * @param  v value to test
  */
-function isBoolean(value: any): value is boolean {
-  return value === true || value === false
+function isBoolean(v: any): v is boolean {
+  return v === true || v === false
 }
 
 /**
