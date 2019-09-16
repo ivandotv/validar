@@ -47,13 +47,13 @@ export function validate<T>(
  * @param  validators object of validator tests
  * @param objUnderTest object to test
  * @param isAsync if function should be run async
- * @returns {(ValidationResult | Promise<ValidationResult>)}
+ * @returns {(ValidationResult<T> | Promise<ValidationResult<T>)}
  */
 function runValidations<T>(
   validators: T,
   objUnderTest: any,
   isAsync: boolean
-): ValidationResult | Promise<ValidationResult> {
+): ValidationResult<T> | Promise<ValidationResult<T>> {
   // final result that is to be returned
   const finalResult: ValidationResult = {
     valid: true,
