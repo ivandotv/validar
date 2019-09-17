@@ -65,7 +65,7 @@ person.location = {
 const result = validateClass(person)
 
 // if you have async tests
-validateClass(person).then(result => {
+validateClassAsync(person).then(result => {
   console.log(result)
 })
 ```
@@ -84,7 +84,7 @@ class Person {
 const result = validateClass(Person)
 
 // if you have async tests
-validateClass(person).then(result => {
+validateClassAsync(person).then(result => {
   console.log(result)
 })
 ```
