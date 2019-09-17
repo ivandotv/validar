@@ -1,9 +1,20 @@
-import { validate, validation } from '../src/index'
+import {
+  FailedTestMessage,
+  Validation,
+  validate,
+  validation,
+} from '../src/index'
 
-let validationFail, validationSuccess
-const message = (value, key, path): string => {
+let validationFail: Validation, validationSuccess: Validation
+
+const message: FailedTestMessage = (
+  value: any,
+  key: string,
+  path: string
+): string => {
   return `${value}|${key}|${path}`
 }
+
 beforeEach(() => {
   validationFail = validation({
     test: () => {
@@ -184,7 +195,7 @@ describe('Field exist', () => {
         value: propValue,
         field: 'email',
         path: 'email',
-        message: message(propValue, 'email', 'email'),
+        message: message(propValue, 'email', 'email', testObj),
       }
       const expectedResult = {
         valid: false,
@@ -219,7 +230,7 @@ describe('Field exist', () => {
         value: propValue,
         field: 'email',
         path: 'email',
-        message: message(propValue, 'email', 'email'),
+        message: message(propValue, 'email', 'email', testObj),
       }
       const expectedResult = {
         valid: false,
@@ -268,7 +279,7 @@ describe('Field exist', () => {
         value: propValue,
         field: 'email',
         path: 'd1.d2.d3.email',
-        message: message(propValue, 'email', 'd1.d2.d3.email'),
+        message: message(propValue, 'email', 'd1.d2.d3.email', testObj),
       }
       const expectedResult = {
         valid: false,
@@ -318,7 +329,7 @@ describe('Field exist', () => {
         value: propValue,
         field: 'email',
         path: 'd1.d2.d3.email',
-        message: message(propValue, 'email', 'd1.d2.d3.email'),
+        message: message(propValue, 'email', 'd1.d2.d3.email', testObj),
       }
       const expectedResult = {
         valid: false,

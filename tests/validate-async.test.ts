@@ -1,6 +1,15 @@
-import { validate, validateAsync, validation } from '../src/index'
+import {
+  FailedTestMessage,
+  validate,
+  validateAsync,
+  validation,
+} from '../src/index'
 
-const message = (value, key, path): string => {
+const message: FailedTestMessage = (
+  value: any,
+  key: string,
+  path: string
+): string => {
   return `${value}|${key}|${path}`
 }
 describe('Async validation', () => {
@@ -60,7 +69,7 @@ describe('Async validation', () => {
       field: 'name',
       path: 'name',
       value: 'ivan',
-      message: message('ivan', 'name', 'name'),
+      message: message('ivan', 'name', 'name', testObj),
     }
     const expectedResult = {
       valid: false,
@@ -186,7 +195,7 @@ describe('Async validation', () => {
         field: 'name',
         path: 'name',
         value: 'ivan',
-        message: message('ivan', 'name', 'name'),
+        message: message('ivan', 'name', 'name', testObj),
       }
       const expectedResult = {
         valid: false,
@@ -235,7 +244,7 @@ describe('Async validation', () => {
         field: 'name',
         path: 'name',
         value: 'ivan',
-        message: message('ivan', 'name', 'name'),
+        message: message('ivan', 'name', 'name', testObj),
       }
       const expectedResult = {
         valid: false,
@@ -317,7 +326,7 @@ describe('Async validation', () => {
       error: true,
       missing: false,
       value: nameValue,
-      message: message(nameValue, 'name', 'name'),
+      message: message(nameValue, 'name', 'name', testObj),
       field: 'name',
       path: 'name',
     }
