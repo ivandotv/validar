@@ -6,7 +6,11 @@ module.exports = {
     node: true,
     jest: true,
   },
-  extends: ['standard-with-typescript', 'prettier'],
+  extends: [
+    'standard-with-typescript',
+    'prettier',
+    'prettier/@typescript-eslint',
+  ],
   plugins: ['prettier'],
   globals: {
     Atomics: 'readonly',
