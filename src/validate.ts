@@ -5,9 +5,11 @@ import {
   Validation,
   ValidationResult,
 } from './validation'
+// @ts-ignore
 import deepForEach from 'deep-for-each'
 import isPromise from 'p-is-promise'
 import set from 'set-value'
+// @ts-ignore
 import undefSafe from 'undefsafe'
 
 /**
@@ -65,7 +67,7 @@ function runValidations<T>(
   const objStruct = {}
 
   // promise that gets returned from async version
-  let finalPromise: Promise<ValidationResult>
+  let finalPromise!: Promise<ValidationResult>
   let resolveLater: (r: ValidationResult) => void // promise resolve when all async tasks are done
   let rejectLater: (e: Error) => void // reject if any of async tasks throws
 
@@ -98,7 +100,7 @@ function runValidations<T>(
         var testValueIsUndefined: boolean = typeof valueToTest === 'undefined'
 
         // result of the test
-        let testResult: FieldValidationResult
+        let testResult!: FieldValidationResult
 
         // if false, we have a value, lets run some validators
         if (!testValueIsUndefined) {
