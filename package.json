@@ -42,7 +42,7 @@
     "typescript": "^3.6.2"
   },
   "scripts": {
-    "prepublishOnly": "npm run compile && npm run test && move-file ./docs/README.md ./README.md",
+    "prepublishOnly": "npm run build && npm run test && move-file ./docs/README.md ./README.md",
     "postpublish": "move-file ./README.md ./docs/README.md",
     "ci:test": "jest --runInBand --reporters=default --reporters=jest-junit --coverage --coverageDirectory=coverage",
     "test": "jest --verbose --runInBand --coverage --no-cache",
@@ -52,7 +52,8 @@
     "fix:tests": "eslint --fix \"./tests/**/*.{js,jsx,ts,tsx}\"",
     "fix": "npm-run-all -p fix:*",
     "clean": "del lib",
-    "compile": "npm run clean && tsc --tsBuildInfoFile ./.buildcache/lib.tsbuildinfo"
+    "build": "npm run clean && tsc",
+    "build:watch": "npm run build && tsc --watch"
   },
   "jest": {
     "watchPlugins": [
