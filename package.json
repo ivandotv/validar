@@ -1,6 +1,6 @@
 {
   "name": "validar",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Object schema validation runner",
   "main": "lib",
   "types": "lib",
