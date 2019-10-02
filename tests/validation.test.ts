@@ -1,7 +1,7 @@
 import { validate, validation } from '../src/index'
 
 describe('Validation instance creation', () => {
-  test('function as only paramter does not throw', () => {
+  test('do not throw an error when a function is the only parameter', () => {
     const fieldValue = 'ivan'
     const validationTest = validation(() => false)
     expect(() => {
@@ -9,7 +9,7 @@ describe('Validation instance creation', () => {
     }).not.toThrow()
   })
 
-  test('function as only parameter is accepted', () => {
+  test('accept function as the only parameter', () => {
     const fieldValue = 'ivan'
     const testObj = { name: fieldValue }
     const validators = { name: validation(() => false) }
@@ -33,7 +33,7 @@ describe('Validation instance creation', () => {
 
     expect(result).toMatchObject(testResult)
   })
-  test('calling required method on validation returns new instance', () => {
+  test('return new instance when calling the "required" method', () => {
     const testValidation = validation({
       test: jest.fn(),
       message: jest.fn(),
@@ -43,7 +43,7 @@ describe('Validation instance creation', () => {
     expect(newValidation).not.toBe(testValidation)
     expect(newValidation.isRequired).toBe(true)
   })
-  test('calling required method makes validation required', () => {
+  test('make validation required when calling the "required" method ', () => {
     const testValidation = validation({
       test: jest.fn(() => true),
     }).required()
@@ -110,7 +110,7 @@ describe('Test function', () => {
 })
 
 describe('Test message', () => {
-  test('default message', () => {
+  test('when no custom message is provided use the default message', () => {
     const validationFail = validation({
       test: () => {
         return false
@@ -140,7 +140,7 @@ describe('Test message', () => {
     )
   })
 
-  test('custom message with payload', () => {
+  test('use custom message with custom payload', () => {
     const messageSpy = jest.fn()
     const payload = {
       a: 'a',
@@ -178,7 +178,7 @@ describe('Test message', () => {
     )
   })
 
-  test('custom message as string', () => {
+  test('pass in custom message as a string', () => {
     const customMsg =
       'Message test path:%path, field:%field, value:%value|path:%path, field:%field, value:%value'
     const validationFail = validation({
@@ -207,7 +207,7 @@ describe('Test message', () => {
   })
 })
 describe('Missing field message', () => {
-  test('default message', () => {
+  test('use the default message when no message is provided', () => {
     const testValidation = validation({
       test: jest.fn(() => true),
       required: true,
@@ -230,7 +230,7 @@ describe('Missing field message', () => {
       expect.objectContaining(testObj)
     )
   })
-  test('custom message', () => {
+  test('use custom message', () => {
     const customMissingMessage = jest.fn()
     const testValidation = validation({
       test: jest.fn(() => true),
@@ -255,7 +255,7 @@ describe('Missing field message', () => {
       expect.objectContaining(testObj)
     )
   })
-  test('custom as string', () => {
+  test('pass in a custom message as a string', () => {
     const customMsg =
       'Message test path:%path, field:%field |path:%path, field:%field'
     const validationFail = validation({

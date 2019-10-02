@@ -1,8 +1,8 @@
 import { validate, validation } from '../src/index'
 
-describe('Field does not exist', () => {
-  describe('and is required', () => {
-    test('field at depth 0', () => {
+describe('When the field does not exist', () => {
+  describe('and it is required', () => {
+    test('validate at depth 0', () => {
       const testObj = {}
       const validationSpy = jest.fn()
       const testValidators = {
@@ -29,7 +29,7 @@ describe('Field does not exist', () => {
       expect(validationSpy).not.toBeCalled()
       expect(result).toMatchObject(expectedResult)
     })
-    test('field at at depth 0 - multiple validators', () => {
+    test('validate at depth 0 with multiple validators', () => {
       const testOne = jest.fn(() => true)
       const testTwo = jest.fn(() => true)
       const validationOne = validation({
@@ -66,7 +66,7 @@ describe('Field does not exist', () => {
       expect(result).toMatchObject(expectedResult)
     })
 
-    test('field at depth 3', () => {
+    test('validate at depth 3', () => {
       const testObj = {}
       const validationSpy = jest.fn()
       const testValidators = {
@@ -106,7 +106,7 @@ describe('Field does not exist', () => {
       expect(result).toMatchObject(expectedResult)
     })
 
-    test('field at depth 3 - multiple validators', () => {
+    test('validate at depth 3 with multiple validators', () => {
       const testObj = {}
       const testOne = jest.fn(() => true)
       const testTwo = jest.fn(() => true)
@@ -157,8 +157,8 @@ describe('Field does not exist', () => {
     })
   })
 
-  describe('and is not required', () => {
-    test('field at depth 0', () => {
+  describe('When the field is not required', () => {
+    test('validate at depth 0', () => {
       const testObj = {}
       const testValidators = {
         email: validation({ test: () => true }),
@@ -184,7 +184,7 @@ describe('Field does not exist', () => {
 
       expect(result).toEqual(expect.objectContaining(expectedResult))
     })
-    test('field at depth 0 - multiple validators', () => {
+    test('validate at depth 0 with multiple validators', () => {
       const testOne = jest.fn(() => true)
       const testTwo = jest.fn(() => true)
       const validationOne = validation({
@@ -221,7 +221,7 @@ describe('Field does not exist', () => {
       expect(result).toEqual(expect.objectContaining(expectedResult))
     })
 
-    test('field at depth 3', () => {
+    test('validate at depth 3', () => {
       const testObj = {}
       const validationSpy = jest.fn()
       const testValidators = {
@@ -262,7 +262,7 @@ describe('Field does not exist', () => {
       expect(result).toEqual(expect.objectContaining(expectedResult))
     })
 
-    test('field at depth 3 - multiple validators', () => {
+    test('validate at depth 3 with multiple validators', () => {
       const testObj = {}
       const testOne = jest.fn(() => true)
       const testTwo = jest.fn(() => true)
