@@ -13,7 +13,7 @@ const message: FailedTestMessage = (
   return `${value}|${key}|${path}`
 }
 describe('Async validation', () => {
-  test('throw if trying to use async test in sinchronous validation', () => {
+  test('if trying to use an async test in a synchronous validation, throw an error ', () => {
     const asyncTest = validation({
       test: async (): Promise<boolean> => {
         return new Promise<boolean>(resolve => {
@@ -32,7 +32,7 @@ describe('Async validation', () => {
       validate(validators, testObj)
     }).toThrow()
   })
-  test('return result is promise', () => {
+  test('returned result is a promise', () => {
     const testObj = {
       nick: 'iki',
     }
@@ -45,7 +45,7 @@ describe('Async validation', () => {
     expect(p).toBeInstanceOf(Promise)
   })
 
-  test('resolve validation promise', async () => {
+  test('returned result is resolved', async () => {
     const asyncTest = validation({
       test: async (): Promise<boolean> => {
         return new Promise<boolean>(resolve => {
@@ -92,7 +92,7 @@ describe('Async validation', () => {
       expect(validationResult).toEqual(expect.objectContaining(expectedResult))
     })
   })
-  test('return rejected promise', async () => {
+  test('return rejected promise, when validation fails', async () => {
     const rejectReason = 'http-error'
     const asyncTest = validation({
       test: async (): Promise<boolean> => {
@@ -115,7 +115,7 @@ describe('Async validation', () => {
     })
   })
   describe('Multiple async validators for the same field', () => {
-    test('validation is success', async () => {
+    test('all validations are a success', async () => {
       const asyncTest = validation({
         test: async (): Promise<boolean> => {
           return new Promise(resolve => {
@@ -169,7 +169,7 @@ describe('Async validation', () => {
         )
       })
     })
-    test('validation is failure', async () => {
+    test('all validations are a failure', async () => {
       const asyncTest = validation({
         test: async (): Promise<boolean> => {
           return new Promise(resolve => {
@@ -262,7 +262,7 @@ describe('Async validation', () => {
       })
     })
 
-    test('validation when field does not exist', async () => {
+    test('try validation when field does not exist', async () => {
       const asyncTest = validation({
         test: async (): Promise<boolean> => {
           return new Promise(resolve => {
@@ -375,7 +375,7 @@ describe('Async validation', () => {
     }
     expect(result).toEqual(expect.objectContaining(expectedResult))
   })
-  test('Immediately return promise deeply nested', async () => {
+  test('Immediately return promise on a deeply nested field', async () => {
     const nameValue = 'Sam'
     const testObj = {
       d1: {

@@ -34,9 +34,9 @@ beforeEach(() => {
     message: message,
   })
 })
-describe('Field exist', () => {
+describe('When the field exist', () => {
   describe('and validation is a success', () => {
-    test('field at depth 0', () => {
+    test('validate field at depth 0', () => {
       const propValue = 'test@test.com'
       const testObj = {
         email: propValue,
@@ -54,7 +54,7 @@ describe('Field exist', () => {
 
       expect(result).toEqual(expect.objectContaining(expectedResult))
     })
-    test('field at depth 0 - multiple validators', () => {
+    test('validate field at depth 0 with multiple validators', () => {
       const propValue = 'test@test.com'
       const testObj = {
         email: propValue,
@@ -77,7 +77,7 @@ describe('Field exist', () => {
       expect(result).toEqual(expect.objectContaining(expectedResult))
     })
 
-    test('field at depth 3', () => {
+    test('validate field at depth 3', () => {
       const propValue = 'test@test.com'
       const testObj = {
         d1: {
@@ -124,7 +124,7 @@ describe('Field exist', () => {
       expect(result).toEqual(expect.objectContaining(expectedResult))
     })
 
-    test('field at depth 3 - multiple validators', () => {
+    test('validate field at depth 3 with multiple validators', () => {
       const propValue = 'test@test.com'
       const testObj = {
         d1: {
@@ -180,8 +180,8 @@ describe('Field exist', () => {
     })
   })
 
-  describe('and validation is a failure', () => {
-    test('field at depth 0 ', () => {
+  describe('The field exists and validation is a failure', () => {
+    test('validate field at depth 0 ', () => {
       const propValue = 'test@test.com'
       const testObj = {
         email: propValue,
@@ -211,7 +211,7 @@ describe('Field exist', () => {
       expect(result).toEqual(expect.objectContaining(expectedResult))
     })
 
-    test('field at depth 0 - multiple validators', () => {
+    test('validate field at depth 0 with multiple validators', () => {
       const propValue = 'test@test.com'
       const testObj = {
         email: propValue,
@@ -248,7 +248,7 @@ describe('Field exist', () => {
       expect(spyThree).toBeCalledTimes(0)
       expect(result).toEqual(expect.objectContaining(expectedResult))
     })
-    test('field at depth 3 - multiple validators', () => {
+    test('validate field at depth 3 with multiple validators', () => {
       const propValue = 'test@test.com'
       const testObj = {
         d1: {
@@ -303,7 +303,7 @@ describe('Field exist', () => {
       expect(spyThree).toBeCalledTimes(0)
       expect(result).toEqual(expect.objectContaining(expectedResult))
     })
-    test('field at depth 3', () => {
+    test('validate field at depth 3', () => {
       const propValue = 'test@test.com'
       const testObj = {
         d1: {
