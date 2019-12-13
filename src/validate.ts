@@ -25,6 +25,7 @@ export function validateAsync<T>(
   objUnderTest: any
 ): Promise<ValidationResult<T>> {
   const r = runValidations(validators, objUnderTest, true)
+
   return r as Promise<ValidationResult<T>>
 }
 
@@ -40,6 +41,7 @@ export function validate<T>(
   objUnderTest: any
 ): ValidationResult<T> {
   const r = runValidations(validators, objUnderTest, false)
+
   return r as ValidationResult<T>
 }
 
@@ -208,6 +210,7 @@ function runValidations<T>(
       .catch(reason => {
         rejectLater(reason)
       })
+
     return finalPromise
   } else {
     // there is no async tests return immediately
@@ -220,6 +223,7 @@ function runValidations<T>(
     if (isAsync) {
       return Promise.resolve(finalResult)
     }
+
     return finalResult
   }
 }
@@ -234,6 +238,7 @@ function wrapInArray(validation: Validation | Validation[]): Validation[] {
   if (!Array.isArray(validation)) {
     validation = [validation]
   }
+
   return validation
 }
 
@@ -305,6 +310,7 @@ function buildTestResult(
       payload
     )
   }
+
   return r
 }
 
@@ -404,6 +410,7 @@ function closeOverPromise(
     .catch(reason => {
       rejectLater(reason)
     })
+
   return promiseWrap
 }
 

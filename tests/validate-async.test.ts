@@ -163,6 +163,7 @@ describe('Async validation', () => {
           },
         },
       }
+
       return validateAsync(validators, testObj).then(validationResult => {
         expect(validationResult).toEqual(
           expect.objectContaining(expectedResult)
@@ -314,7 +315,7 @@ describe('Async validation', () => {
 
     const validator = {
       name: validation({
-        test: value => {
+        test: _value => {
           return Promise.resolve(false)
         },
         message: message,
@@ -350,7 +351,7 @@ describe('Async validation', () => {
 
     const validator = {
       name: validation({
-        test: value => {
+        test: _value => {
           return Promise.resolve(true)
         },
         message: message,
@@ -389,7 +390,7 @@ describe('Async validation', () => {
       d1: {
         d2: {
           name: validation({
-            test: value => {
+            test: _value => {
               return Promise.resolve(true)
             },
           }),

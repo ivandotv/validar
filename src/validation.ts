@@ -92,6 +92,7 @@ export class Validation {
     } else {
       msg = parseMsgString(value, field, path, this.testMsg)
     }
+
     return msg
   }
 
@@ -109,6 +110,7 @@ export class Validation {
     } else {
       msg = parseMsgString('', field, path, this.missingMsg)
     }
+
     return msg
   }
 
@@ -140,6 +142,7 @@ export function validation(config: ValidationConfig | TestFunc): Validation {
   if (typeof config === 'function') {
     return new Validation(config, undefined, false, undefined)
   }
+
   return new Validation(
     config.test,
     config.message,
