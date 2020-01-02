@@ -77,7 +77,7 @@ function runValidations<T>(
   const errorPool: { [key: string]: FieldValidationResult } = {}
   const asyncTests: Array<Promise<FieldValidationResult>> = [] // array of async tests
 
-  // if in async mode initialize fine promise
+  // if in async mode initialize final promise
   if (isAsync) {
     finalPromise = new Promise((resolve, reject) => {
       resolveLater = resolve

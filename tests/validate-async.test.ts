@@ -96,7 +96,7 @@ describe('Async validation', () => {
     const rejectReason = 'http-error'
     const asyncTest = validation({
       test: async (): Promise<boolean> => {
-        return new Promise((resolve, reject) => {
+        return new Promise((_, reject) => {
           reject(rejectReason)
         })
       },
@@ -315,7 +315,7 @@ describe('Async validation', () => {
 
     const validator = {
       name: validation({
-        test: _value => {
+        test: () => {
           return Promise.resolve(false)
         },
         message: message,
