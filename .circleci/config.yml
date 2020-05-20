@@ -2,11 +2,6 @@ version: 2.1
 orbs:
   codecov: codecov/codecov@1.0.5
 jobs:
-  node-v8:
-    docker:
-      - image: circleci/node:8
-    steps:
-      - test
   node-v10:
     docker:
       - image: circleci/node:10
@@ -15,6 +10,11 @@ jobs:
   node-v12:
     docker:
       - image: circleci/node:12
+    steps:
+      - test
+  node-v14:
+    docker:
+      - image: circleci/node:14
     steps:
       - test
       - store-artifacts
@@ -51,6 +51,6 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - node-v8
       - node-v10
       - node-v12
+      - node-v14
