@@ -207,7 +207,7 @@ function runValidations<T>(
         }
         resolveLater(finalResult)
       })
-      .catch(reason => {
+      .catch((reason) => {
         rejectLater(reason)
       })
 
@@ -388,7 +388,7 @@ function closeOverPromise(
   )
 
   testPromiseResult
-    .then(result => {
+    .then((result) => {
       const constructedResult = buildTestResult(
         validation,
         result,
@@ -407,7 +407,7 @@ function closeOverPromise(
       set(objStruct, path, constructedResult)
       resolveLater(constructedResult)
     })
-    .catch(reason => {
+    .catch((reason) => {
       rejectLater(reason)
     })
 
