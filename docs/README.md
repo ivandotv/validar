@@ -19,9 +19,6 @@ npm install validar
 
 **Validation runner doesn't contain any validation tests**, it is meant to be used with tried and tested validation libraries such as [Validator.js](https://github.com/validatorjs/validator.js) or you can write your own tests very easily.
 
-Validation runner doesn’t contain any validation tests. It is meant to be used with tried and tested validation libraries such as Validator.js or you can write your own tests very easily.
-Example
-
 ## Usage
 
 Given an object with the data:
