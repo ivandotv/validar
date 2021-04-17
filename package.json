@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "deep-for-each": "^3.0.0",
-    "p-is-promise": "^3.0.0",
+    "p-is-promise": "^4.0.0",
     "set-value": "^3.0.2",
     "undefsafe": "^2.0.3"
   },
