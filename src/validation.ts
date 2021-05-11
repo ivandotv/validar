@@ -5,7 +5,7 @@
  * @param  path path to missing field
  * @returns
  */
-const defaultMissingMessage: MissingFieldMessage = function(field, path) {
+const defaultMissingMessage: MissingFieldMessage = function (field, path) {
   return `Field:'${path}' not provided.`
 }
 
@@ -17,7 +17,7 @@ const defaultMissingMessage: MissingFieldMessage = function(field, path) {
  * @param path  path to the field
  * @returns
  */
-const defaultTestMessage: FailedTestMessage = function(value, field, path) {
+const defaultTestMessage: FailedTestMessage = function (value, field, path) {
   return `Field:'${path}' with value:${value} failed validation.`
 }
 
@@ -265,7 +265,7 @@ export interface ValidationResult<T = any> {
  * Setup field validation result on every validator property
  * @see https://stackoverflow.com/questions/57739972/inferring-object-structure-and-type-of-object-properties/57740202#57740202
  */
-type DeepValidated<T> = T extends object
+type DeepValidated<T> = T extends {}
   ? { [K in keyof T]: DeepValidated<T[K]> }
   : FieldValidationResult
 

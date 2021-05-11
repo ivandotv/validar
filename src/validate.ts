@@ -5,11 +5,11 @@ import {
   Validation,
   ValidationResult,
 } from './validation'
-// @ts-ignore
+// @ts-expect-error - no typings
 import deepForEach from 'deep-for-each'
 import isPromise from 'p-is-promise'
 import set from 'set-value'
-// @ts-ignore
+// @ts-expect-error - no typings
 import undefSafe from 'undefsafe'
 
 /**
@@ -97,9 +97,9 @@ function runValidations<T>(
       // if it's an array we skip it becase we iterate on arrays later
       if (!Array.isArray(subject)) {
         // take the path from the validator object and see if there is something on the same path on object under test
-        var valueToTest: any | undefined = undefSafe(objUnderTest, path)
+        const valueToTest: any | undefined = undefSafe(objUnderTest, path)
         // do we have value to test for this validator?
-        var testValueIsUndefined: boolean = typeof valueToTest === 'undefined'
+        const testValueIsUndefined: boolean = typeof valueToTest === 'undefined'
 
         // result of the test
         let testResult!: FieldValidationResult
