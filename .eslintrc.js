@@ -5,7 +5,12 @@ module.exports = {
     node: true,
     jest: true,
   },
-  extends: ['prettier'],
+  extends: [
+    // 'eslint:recom>mended',
+    // 'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
+  ],
   plugins: ['@typescript-eslint/eslint-plugin', 'prettier'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -14,6 +19,9 @@ module.exports = {
   rules: {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/ban-types': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     'prettier/prettier': ['error'],
     'lines-between-class-members': ['error'],
     'padding-line-between-statements': [
