@@ -11,13 +11,13 @@
   "dependencies": {
     "deep-for-each": "^3.0.0",
     "p-is-promise": "^3.0.0",
-    "set-value": "^3.0.2",
+    "set-value": "^4.0.0",
     "undefsafe": "^2.0.3"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "@types/node": "^15.0.2",
-    "@types/set-value": "^2.0.0",
+    "@types/set-value": "^4.0.0",
     "@typescript-eslint/eslint-plugin": "^4.23.0",
     "del-cli": "^3.0.1",
     "eslint": "^7.26.0",
